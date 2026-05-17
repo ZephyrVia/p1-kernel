@@ -1,0 +1,44 @@
+CompileFlags:
+  Compiler: aarch64-linux-gnu-gcc
+  Add:
+    - --target=aarch64-linux-gnu
+    - -ffreestanding
+    - -nostdlib
+    - -nostartfiles
+    - -mgeneral-regs-only
+    - -DUSE_QEMU
+---
+If:
+  PathMatch: src/exp1/.*
+CompileFlags:
+  Add: [-Isrc/exp1/include]
+---
+If:
+  PathMatch: src/exp2/.*
+CompileFlags:
+  Add: [-Isrc/exp2/include]
+---
+If:
+  PathMatch: src/exp3/.*
+CompileFlags:
+  Add: [-Isrc/exp3/include]
+---
+If:
+  PathMatch: src/exp4a/.*
+CompileFlags:
+  Add: [-Isrc/exp4a/include]
+---
+If:
+  PathMatch: src/exp4b/.*
+CompileFlags:
+  Add: [-Isrc/exp4b/include]
+---
+If:
+  PathMatch: src/exp5/.*
+CompileFlags:
+  Add: [-Isrc/exp5/include]
+---
+If:
+  PathMatch: src/exp6/.*
+CompileFlags:
+  Add: [-Isrc/exp6/include]

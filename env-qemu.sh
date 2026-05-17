@@ -6,7 +6,7 @@
 export PATH="/cs4414-shared/qemu/aarch64-softmmu/:${PATH}"
 
 run-uart0() {
-   qemu-system-aarch64 -M raspi3b -kernel ./kernel8.img -serial stdio 
+   qemu-system-aarch64 -M raspi3b -kernel ./kernel8.img -serial mon:stdio -nographic
 }
 
 run() {
@@ -62,6 +62,10 @@ p1-run() {
     run
 }
 
+p1-run-uart0() {
+    run-uart0
+}
+
 p1-run-log() {
     run-log
 }
@@ -79,6 +83,7 @@ usage () {
 AVAILABLE COMMANDS 
 ------------------
     p1-run              Run qemu with the kernel (./kernel8.img)
+    p1-run-uart0        Run qemu with UART0 connected to stdio
     p1-run-log          Run qemu with the kernel, meanwhile writing qemu logs to qemu.log
     p1-run-debug        Run qemu with the kernel, GDB support on 
 

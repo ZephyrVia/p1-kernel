@@ -1,0 +1,7 @@
+--target=aarch64-linux-gnu
+-ffreestanding
+-nostdlib
+-nostartfiles
+-mgeneral-regs-only
+-DUSE_QEMU
+-Iinclude
