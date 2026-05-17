@@ -2,6 +2,5 @@
 -ffreestanding
 -nostdlib
 -nostartfiles
--mgeneral-regs-only
 -DUSE_QEMU
 -Iinclude
