@@ -6,7 +6,7 @@
 export PATH="/cs4414-shared/qemu/aarch64-softmmu/:${PATH}"
 
 run-uart0() {
-   qemu-system-aarch64 -M raspi3b -kernel ./kernel8.img -serial mon:stdio -nographic
+   qemu-system-aarch64 -M raspi3b -smp 4 -kernel ./kernel8.img -serial mon:stdio -nographic
 }
 
 run() {

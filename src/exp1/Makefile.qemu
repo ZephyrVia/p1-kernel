@@ -6,6 +6,7 @@
 
 
 ARMGNU ?= aarch64-linux-gnu
+QEMU ?= qemu-system-aarch64
 
 
 # `COPS` and `ASMOPS` are options that we pass to the compiler when compiling C and assembler code, respectively. These options require a short explanation:
@@ -40,6 +41,9 @@ all : kernel8.img
 # The `clean` target is responsible for deleting all compilation artifacts and the compiled kernel image.
 clean :
 	rm -rf $(BUILD_DIR) *.img 
+
+run : kernel8.img
+	$(QEMU) -M raspi3b -smp 4 -kernel ./kernel8.img -serial mon:stdio -nographic
 
 
 # The next two targets are responsible for compiling C and assembler files. If, for example, in the `src` 

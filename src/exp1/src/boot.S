@@ -9,15 +9,22 @@
 _start:
 
 	# Rpi3 has 4 cores, and after the device is powered on, each core begins to 
-	# execute the same code. Our kernel only works with the first one and put
-	# all of the other cores in an endless loop. 
+	# execute the same code. Keep each core's processor id and give it a separate
+	# stack before entering C code.
 
 	# Get the processor ID from the [mpidr_el1](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0500g/BABHBJCI.html) 
 	# system register. 	
 	mrs	x0, mpidr_el1		
 	and	x0, x0, #0xFF		// Check processor id
-	cbz	x0, master			// Hang for all non-primary CPU. cbz=jump if result of previously executed operation == 0
-	b	proc_hang
+	mov	x19, x0				// Preserve processor id across setup.
+	add	x1, x19, #1
+	mov	x2, #CORE_STACK_SIZE
+	mul	x1, x1, x2
+	mov	x2, #LOW_MEMORY
+	add	x1, x1, x2
+	mov	sp, x1
+	cbz	x19, master
+	b	wait_for_master
 
 proc_hang: 
 	b 	proc_hang
@@ -36,14 +43,41 @@ master:
 	sub	x1, x1, x0
 	bl 	memzero
 
-	# After cleaning the `.bss` section, the kernel initializes the stack pointer and 
-	# passes execution to the `kernel_main` function. The Rpi3 loads the kernel at address 0 
-	# (QEMU loads at 0x80000); that's why the initial stack pointer can be set to 
-	# any location high enough so that stack will not override the kernel image when 
-	# it grows sufficiently large. `LOW_MEMORY` (mm.h) is defined to be 4MB.
-	# As our kernel's stack won't grow very large and the code/data itself is 
-	# tiny, 4MB is more than enough for us. 
+	# Release secondary cores. On Rpi3/QEMU raspi3b, core1-3 wait in the
+	# firmware/QEMU holding pen. Each core watches a fixed low-memory spin-table
+	# slot for its entry address:
+	#   core1: 0xe0
+	#   core2: 0xe8
+	#   core3: 0xf0
+	# Write our _start address to those slots, then send an event. The waiting
+	# cores wake up, read their slot, and branch to _start.
+	ldr	x0, =_start
+	mov	x1, #0xe0
+	str	x0, [x1]
+	mov	x1, #0xe8
+	str	x0, [x1]
+	mov	x1, #0xf0
+	str	x0, [x1]
+	sev
 
-	mov	sp, #LOW_MEMORY 
+	mov	x0, #1
+	adr	x1, boot_ready
+	stlr	w0, [x1]
+
+	b	kernel_entry
+
+wait_for_master:
+	adr	x1, boot_ready
+1:
+	ldar	w0, [x1]
+	cbz	w0, 1b
+
+kernel_entry:
+	mov	x0, x19
 	bl	kernel_main		// c function, kernel.c
 	b 	proc_hang		// should never reach here
+
+.section ".data"
+.balign 4
+boot_ready:
+	.word 0
