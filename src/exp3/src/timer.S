@@ -9,8 +9,8 @@
  *  https://developer.arm.com/docs/ddi0487/ca/arm-architecture-reference-manual-armv8-for-armv8-a-architecture-profile
  */
 
-.globl gen_timer_init
-gen_timer_init:
+.globl local_timer_enable
+local_timer_enable:
 # Below, writes 1 to the control register (CNTP_CTL_EL0) of the EL1 physical timer
 	# Explanation: 
 	# 		CTL indicates this is a control register
@@ -20,8 +20,8 @@ gen_timer_init:
 	msr CNTP_CTL_EL0, x0	// writes 1 to the control register (`CNTP_CTL_EL0`) of **the EL1 physical timer**
 	ret
 
-.globl gen_timer_reset
-gen_timer_reset:
+.globl local_timer_reset
+local_timer_reset:
 // Take the 1st arugment (passed in x0) as the interval before next firing of the timer. 
 // alternatively, the two lines below demonstrate how to set a fixed interval (1<<24 ticks). 
 //   mov x0, #1

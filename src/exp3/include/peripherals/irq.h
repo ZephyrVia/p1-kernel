@@ -14,10 +14,7 @@
 #define DISABLE_IRQS_2		(PBASE+0x0000B220)
 #define DISABLE_BASIC_IRQS	(PBASE+0x0000B224)
 
-#define SYSTEM_TIMER_IRQ_0	(1 << 0)
-#define SYSTEM_TIMER_IRQ_1	(1 << 1)
-#define SYSTEM_TIMER_IRQ_2	(1 << 2)
-#define SYSTEM_TIMER_IRQ_3	(1 << 3)
+#define IRQ_PENDING_1_AUX	(1 << 29)
 
 // See BCM2836 ARM-local peripherals at
 // https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2836/QA7_rev3.4.pdf

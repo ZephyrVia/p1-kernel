@@ -20,13 +20,22 @@
 .text.boot	src/linker-qemu.ld	/^	.text.boot : { *(.text.boot) }$/;"	S
 .text.boot	src/linker.ld	/^	.text.boot : { *(.text.boot) }$/;"	S
 AUX_ENABLES	include/peripherals/mini_uart.h	/^#define AUX_ENABLES /;"	d
+AUX_IRQ_MINI_UART	include/peripherals/mini_uart.h	/^#define AUX_IRQ_MINI_UART /;"	d
+AUX_IRQ_REG	include/peripherals/mini_uart.h	/^#define AUX_IRQ_REG /;"	d
 AUX_MU_BAUD_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_BAUD_REG /;"	d
 AUX_MU_CNTL_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_CNTL_REG /;"	d
 AUX_MU_IER_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_IER_REG /;"	d
+AUX_MU_IER_RX_IRQ	include/peripherals/mini_uart.h	/^#define AUX_MU_IER_RX_IRQ /;"	d
+AUX_MU_IER_TX_IRQ	include/peripherals/mini_uart.h	/^#define AUX_MU_IER_TX_IRQ /;"	d
+AUX_MU_IIR_IRQ_PENDING	include/peripherals/mini_uart.h	/^#define AUX_MU_IIR_IRQ_PENDING /;"	d
 AUX_MU_IIR_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_IIR_REG /;"	d
+AUX_MU_IIR_RX_IRQ	include/peripherals/mini_uart.h	/^#define AUX_MU_IIR_RX_IRQ /;"	d
+AUX_MU_IIR_TX_IRQ	include/peripherals/mini_uart.h	/^#define AUX_MU_IIR_TX_IRQ /;"	d
 AUX_MU_IO_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_IO_REG /;"	d
 AUX_MU_LCR_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_LCR_REG /;"	d
+AUX_MU_LSR_DATA_READY	include/peripherals/mini_uart.h	/^#define AUX_MU_LSR_DATA_READY /;"	d
 AUX_MU_LSR_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_LSR_REG /;"	d
+AUX_MU_LSR_TX_EMPTY	include/peripherals/mini_uart.h	/^#define AUX_MU_LSR_TX_EMPTY /;"	d
 AUX_MU_MCR_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_MCR_REG /;"	d
 AUX_MU_MSR_REG	include/peripherals/mini_uart.h	/^#define AUX_MU_MSR_REG /;"	d
 AUX_MU_SCRATCH	include/peripherals/mini_uart.h	/^#define AUX_MU_SCRATCH /;"	d
@@ -61,6 +70,7 @@ IRQ_INVALID_EL0_64	include/entry.h	/^#define IRQ_INVALID_EL0_64	/;"	d
 IRQ_INVALID_EL1h	include/entry.h	/^#define IRQ_INVALID_EL1h	/;"	d
 IRQ_INVALID_EL1t	include/entry.h	/^#define IRQ_INVALID_EL1t	/;"	d
 IRQ_PENDING_1	include/peripherals/irq.h	/^#define IRQ_PENDING_1	/;"	d
+IRQ_PENDING_1_AUX	include/peripherals/irq.h	/^#define IRQ_PENDING_1_AUX	/;"	d
 IRQ_PENDING_2	include/peripherals/irq.h	/^#define IRQ_PENDING_2	/;"	d
 LOW_MEMORY	include/mm.h	/^#define LOW_MEMORY /;"	d
 LPBASE	include/peripherals/base.h	/^#define LPBASE /;"	d
@@ -88,23 +98,8 @@ SYNC_INVALID_EL0_32	include/entry.h	/^#define SYNC_INVALID_EL0_32	/;"	d
 SYNC_INVALID_EL0_64	include/entry.h	/^#define SYNC_INVALID_EL0_64	/;"	d
 SYNC_INVALID_EL1h	include/entry.h	/^#define SYNC_INVALID_EL1h	/;"	d
 SYNC_INVALID_EL1t	include/entry.h	/^#define SYNC_INVALID_EL1t	/;"	d
-SYSTEM_TIMER_IRQ_0	include/peripherals/irq.h	/^#define SYSTEM_TIMER_IRQ_0	/;"	d
-SYSTEM_TIMER_IRQ_1	include/peripherals/irq.h	/^#define SYSTEM_TIMER_IRQ_1	/;"	d
-SYSTEM_TIMER_IRQ_2	include/peripherals/irq.h	/^#define SYSTEM_TIMER_IRQ_2	/;"	d
-SYSTEM_TIMER_IRQ_3	include/peripherals/irq.h	/^#define SYSTEM_TIMER_IRQ_3	/;"	d
 S_FRAME_SIZE	include/entry.h	/^#define S_FRAME_SIZE	/;"	d
 TABLE_SHIFT	include/mm.h	/^#define TABLE_SHIFT /;"	d
-TIMER_C0	include/peripherals/timer.h	/^#define TIMER_C0 /;"	d
-TIMER_C1	include/peripherals/timer.h	/^#define TIMER_C1 /;"	d
-TIMER_C2	include/peripherals/timer.h	/^#define TIMER_C2 /;"	d
-TIMER_C3	include/peripherals/timer.h	/^#define TIMER_C3 /;"	d
-TIMER_CHI	include/peripherals/timer.h	/^#define TIMER_CHI /;"	d
-TIMER_CLO	include/peripherals/timer.h	/^#define TIMER_CLO /;"	d
-TIMER_CS	include/peripherals/timer.h	/^#define TIMER_CS /;"	d
-TIMER_CS_M0	include/peripherals/timer.h	/^#define TIMER_CS_M0	/;"	d
-TIMER_CS_M1	include/peripherals/timer.h	/^#define TIMER_CS_M1	/;"	d
-TIMER_CS_M2	include/peripherals/timer.h	/^#define TIMER_CS_M2	/;"	d
-TIMER_CS_M3	include/peripherals/timer.h	/^#define TIMER_CS_M3	/;"	d
 TIMER_INT_CTRL_0	include/peripherals/irq.h	/^#define TIMER_INT_CTRL_0 /;"	d
 TIMER_INT_CTRL_0_VALUE	include/peripherals/irq.h	/^#define TIMER_INT_CTRL_0_VALUE /;"	d
 _ENTRY_H	include/entry.h	/^#define _ENTRY_H$/;"	d
@@ -115,7 +110,6 @@ _P_BASE_H	include/peripherals/base.h	/^#define	_P_BASE_H$/;"	d
 _P_GPIO_H	include/peripherals/gpio.h	/^#define	_P_GPIO_H$/;"	d
 _P_IRQ_H	include/peripherals/irq.h	/^#define	_P_IRQ_H$/;"	d
 _P_MINI_UART_H	include/peripherals/mini_uart.h	/^#define	_P_MINI_UART_H$/;"	d
-_P_TIMER_H	include/peripherals/timer.h	/^#define	_P_TIMER_H$/;"	d
 _SYSREGS_H	include/arm/sysregs.h	/^#define _SYSREGS_H$/;"	d
 _TIMER_H	include/timer.h	/^#define	_TIMER_H$/;"	d
 _UTILS_H	include/utils.h	/^#define	_UTILS_H$/;"	d
@@ -127,7 +121,6 @@ bss_begin	src/linker-qemu.ld	/^	bss_begin = .;$/;"	s
 bss_begin	src/linker.ld	/^	bss_begin = .;$/;"	s
 bss_end	src/linker-qemu.ld	/^	bss_end = .;$/;"	s
 bss_end	src/linker.ld	/^	bss_end = .;$/;"	s
-curVal	src/timer.c	/^unsigned int curVal = 0;$/;"	v	typeref:typename:unsigned int
 delay	src/utils.S	/^delay:$/;"	l
 disable_irq	src/irq.S	/^disable_irq:$/;"	l
 el1_entry	src/boot.S	/^el1_entry:$/;"	l
@@ -144,20 +137,17 @@ fiq_invalid_el0_32	src/entry.S	/^fiq_invalid_el0_32:$/;"	l
 fiq_invalid_el0_64	src/entry.S	/^fiq_invalid_el0_64:$/;"	l
 fiq_invalid_el1h	src/entry.S	/^fiq_invalid_el1h:$/;"	l
 fiq_invalid_el1t	src/entry.S	/^fiq_invalid_el1t:$/;"	l
-gen_timer_init	src/timer.S	/^gen_timer_init:$/;"	l
-gen_timer_reset	src/timer.S	/^gen_timer_reset:$/;"	l
-generic_timer_init	src/timer.c	/^void generic_timer_init ( void )$/;"	f	typeref:typename:void
 get32	src/utils.S	/^get32:$/;"	l
 get_cnt	src/utils.S	/^get_cnt:$/;"	l
 get_el	src/utils.S	/^get_el:$/;"	l
-handle_generic_timer_irq	src/timer.c	/^void handle_generic_timer_irq( void ) $/;"	f	typeref:typename:void
 handle_invalid_entry	src/entry.S	/^	.macro handle_invalid_entry type$/;"	m
 handle_irq	src/irq.c	/^void handle_irq(void)$/;"	f	typeref:typename:void
-handle_timer_irq	src/timer.c	/^void handle_timer_irq( void ) $/;"	f	typeref:typename:void
+handle_local_timer_irq	src/timer.c	/^void handle_local_timer_irq(void)$/;"	f	typeref:typename:void
+handle_uart_irq	src/mini_uart.c	/^void handle_uart_irq(void)$/;"	f	typeref:typename:void
 i2a	src/printf.c	/^static void i2a (int num, char * bf)$/;"	f	typeref:typename:void	file:
 init_printf	src/printf.c	/^void init_printf(void* putp,void (*putf) (void*,char))$/;"	f	typeref:typename:void
-interval	src/timer.c	/^int interval = (1 << 26); \/\/ xzl: around 1 sec$/;"	v	typeref:typename:int
-interval	src/timer.c	/^int interval = 1 * 1000 * 1000; \/\/ xzl: around 1 sec$/;"	v	typeref:typename:int
+interval	src/timer.c	/^static int interval = (1 << 26); \/\/ around 1 sec in QEMU$/;"	v	typeref:typename:int	file:
+interval	src/timer.c	/^static int interval = 1 * 1000 * 1000; \/\/ around 1 sec on RPi3$/;"	v	typeref:typename:int	file:
 irq_invalid_el0_32	src/entry.S	/^irq_invalid_el0_32:$/;"	l
 irq_invalid_el0_64	src/entry.S	/^irq_invalid_el0_64:$/;"	l
 irq_invalid_el1t	src/entry.S	/^irq_invalid_el1t:$/;"	l
@@ -166,6 +156,9 @@ kernel_entry	src/entry.S	/^	.macro	kernel_entry$/;"	m
 kernel_exit	src/entry.S	/^	.macro	kernel_exit$/;"	m
 kernel_main	src/kernel.c	/^void kernel_main(void)$/;"	f	typeref:typename:void
 li2a	src/printf.c	/^static void li2a (long num, char * bf)$/;"	f	typeref:typename:void	file:
+local_timer_enable	src/timer.S	/^local_timer_enable:$/;"	l
+local_timer_init	src/timer.c	/^void local_timer_init(void)$/;"	f	typeref:typename:void
+local_timer_reset	src/timer.S	/^local_timer_reset:$/;"	l
 master	src/boot.S	/^master:$/;"	l
 memzero	src/mm.S	/^memzero:$/;"	l
 printf	include/printf.h	/^#define printf /;"	d
@@ -187,7 +180,6 @@ sync_invalid_el1t	src/entry.S	/^sync_invalid_el1t:$/;"	l
 tfp_format	src/printf.c	/^void tfp_format(void* putp,putcf putf,char *fmt, va_list va)$/;"	f	typeref:typename:void
 tfp_printf	src/printf.c	/^void tfp_printf(char *fmt, ...)$/;"	f	typeref:typename:void
 tfp_sprintf	src/printf.c	/^void tfp_sprintf(char* s,char *fmt, ...)$/;"	f	typeref:typename:void
-timer_init	src/timer.c	/^void timer_init ( void )$/;"	f	typeref:typename:void
 try_to_return	src/entry.S	/^try_to_return:$/;"	l
 uart_init	src/mini_uart.c	/^void uart_init ( void )$/;"	f	typeref:typename:void
 uart_recv	src/mini_uart.c	/^char uart_recv ( void )$/;"	f	typeref:typename:char

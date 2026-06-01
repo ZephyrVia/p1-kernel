@@ -18,9 +18,12 @@
 
 #ifndef __ASSEMBLER__
 
+void mm_init(void);
 unsigned long get_free_page();
 void free_page(unsigned long p);
 void memzero(unsigned long src, unsigned long n);
+unsigned long get_alloc_start(void);
+unsigned long get_free_pages_count(void);
 
 #endif
 

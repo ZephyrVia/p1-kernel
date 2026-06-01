@@ -1,6 +1,7 @@
 #include "sched.h"
 #include "irq.h"
 #include "printf.h"
+#include "debug.h"
 
 static struct task_struct init_task = INIT_TASK;
 struct task_struct *current = &(init_task);
@@ -58,6 +59,7 @@ void _schedule(void)
 			}
 		}
 	}
+	debug_schedule_pick("_schedule", current, next, c);
 	switch_to(task[next]);
 	preempt_enable();
 }
@@ -74,6 +76,7 @@ void switch_to(struct task_struct * next)
 		return;
 	struct task_struct * prev = current;
 	current = next;
+	debug_switch(prev, next);
 
 	/*	 
 		below is where context switch happens. 
@@ -92,14 +95,18 @@ void switch_to(struct task_struct * next)
 }
 
 void schedule_tail(void) {
+	debug_task_start();
 	preempt_enable();
 }
 
 
 void timer_tick()
 {
+	long before = current->counter;
 	--current->counter;
-	if (current->counter > 0 || current->preempt_count > 0) 
+	int will_schedule = !(current->counter > 0 || current->preempt_count > 0);
+	debug_timer_tick(current, before, current->counter, will_schedule);
+	if (!will_schedule) 
 		return;
 	current->counter=0;
 

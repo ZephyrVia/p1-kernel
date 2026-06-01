@@ -3,6 +3,7 @@
 #include "timer.h"
 #include "entry.h"
 #include "peripherals/irq.h"
+#include "debug.h"
 
 const char *entry_error_messages[] = {
     "SYNC_INVALID_EL1t",
@@ -41,6 +42,7 @@ void handle_irq(void)
 {
     // Each Core has its own pending local intrrupts register
     unsigned int irq = get32(INT_SOURCE_0);
+    debug_irq(irq);
     switch (irq) {
         case (GENERIC_TIMER_INTERRUPT):
             handle_generic_timer_irq();

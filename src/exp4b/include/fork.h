@@ -2,5 +2,6 @@
 #define _FORK_H
 
 int copy_process(unsigned long fn, unsigned long arg);
+int copy_process_with_priority(unsigned long fn, unsigned long arg, long priority);
 
 #endif

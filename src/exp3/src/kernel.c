@@ -12,7 +12,7 @@ void kernel_main(void)
 	printf("kernel boots...\n");
 
 	irq_vector_init();
-	generic_timer_init();
+	local_timer_init();
 	enable_interrupt_controller();
 	enable_irq();
 
@@ -30,6 +30,5 @@ void kernel_main(void)
 	//printf("we're back!");
 
 	while (1) {
-		uart_send(uart_recv());
-	}	
+	}
 }

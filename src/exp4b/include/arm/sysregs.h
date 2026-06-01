@@ -16,6 +16,12 @@
 #define SCTLR_VALUE_MMU_DISABLED	(SCTLR_RESERVED | SCTLR_EE_LITTLE_ENDIAN | SCTLR_I_CACHE_DISABLED | SCTLR_D_CACHE_DISABLED | SCTLR_MMU_DISABLED)
 
 // ***************************************
+// CPACR_EL1, Architectural Feature Access Control Register.
+// ***************************************
+
+#define CPACR_EL1_FPEN			(3 << 20)
+
+// ***************************************
 // HCR_EL2, Hypervisor Configuration Register (EL2), Page 2487 of AArch64-Reference-Manual.
 // ***************************************
 

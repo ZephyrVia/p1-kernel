@@ -9,4 +9,5 @@ SECTIONS
 	bss_begin = .;
 	.bss : { *(.bss*) } 
 	bss_end = .;
+	kernel_end = .;
 }

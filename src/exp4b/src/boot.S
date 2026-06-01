@@ -46,6 +46,10 @@ el1_entry:
 	sub	x1, x1, x0
 	bl 	memzero
 
+	ldr	x0, =CPACR_EL1_FPEN
+	msr	cpacr_el1, x0
+	isb
+
 	mov	sp, #LOW_MEMORY
 	bl	kernel_main
 	b 	proc_hang		// should never come here
