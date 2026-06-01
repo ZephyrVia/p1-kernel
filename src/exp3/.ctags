@@ -1,0 +1,7 @@
+--languages=C,Asm
+--langmap=Asm:+.S
+--extras=+q
+--fields=+nK
+--kinds-C=+p
+--exclude=build
+--exclude=kernel8.img

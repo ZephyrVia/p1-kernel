@@ -1,4 +1,5 @@
 ARMGNU ?= aarch64-linux-gnu
+QEMU ?= qemu-system-aarch64
 
 COPS = -Wall -Werror -nostdlib -nostartfiles -ffreestanding -Iinclude -mgeneral-regs-only -g -O0 -DUSE_QEMU
 ASMOPS = -Iinclude  -g -DUSE_QEMU
@@ -6,10 +7,18 @@ ASMOPS = -Iinclude  -g -DUSE_QEMU
 BUILD_DIR = build
 SRC_DIR = src
 
+.PHONY: all clean run tags
+
 all : kernel8.img
 
 clean :
 	rm -rf $(BUILD_DIR) *.img 
+
+run : kernel8.img
+	$(QEMU) -M raspi3b -kernel ./kernel8.img -serial null -serial mon:stdio -nographic
+
+tags :
+	ctags -R -f tags src include
 
 $(BUILD_DIR)/%_c.o: $(SRC_DIR)/%.c
 	mkdir -p $(@D)
