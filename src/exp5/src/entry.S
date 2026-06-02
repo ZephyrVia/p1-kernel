@@ -176,6 +176,10 @@ el0_sync:
 	lsr	x24, x25, #ESR_ELx_EC_SHIFT		// exception class
 	cmp	x24, #ESR_ELx_EC_SVC64			// is the currrent exception caused by SVC in 64-bit state? 
 	b.eq	el0_svc						// if yes, jump to below for handling syscalls 
+	cmp	x24, #ESR_ELx_EC_SYS64			// trapped MRS/MSR/system instruction from EL0?
+	b.eq	el0_sys
+	cmp	x24, #ESR_ELx_EC_UNKNOWN		// some forbidden system register accesses report EC=0
+	b.eq	el0_sys
 	handle_invalid_entry 0, SYNC_ERROR
 
 sc_nr	.req	x25					// number of system calls
@@ -200,6 +204,13 @@ ret_from_syscall:
 	bl	disable_irq				
 	str	x0, [sp, #S_X0]				// returned x0 to the user task (saving x0 to on the stack)
 	kernel_exit 0
+
+el0_sys:
+	mov	x0, #SYSREG_ERROR
+	mov	x1, x25
+	mrs	x2, elr_el1
+	bl	show_invalid_entry_message
+	b	err_hang
 
 // the first instructions to be executed by a new task 
 // x19 = fn; x20 = arg, populated by copy_process() 

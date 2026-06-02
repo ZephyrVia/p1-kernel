@@ -8,6 +8,19 @@ void sys_write(char * buf){
 	printf(buf);
 }
 
+int sys_set_priority(long priority)
+{
+	if (priority < 1) {
+		return -1;
+	}
+	preempt_disable();
+	printf("[prio] task=%x priority %d -> %d\r\n", current, current->priority, priority);
+	current->priority = priority;
+	current->counter = priority;
+	preempt_enable();
+	return 0;
+}
+
 /* Creates a new user thread. 
 	@stack: The location of the stack for the newly created thread. */
 int sys_clone(unsigned long stack){
@@ -32,4 +45,4 @@ void sys_exit(){
 
 /* An array of pointers to all syscall handlers. 
 	Each syscall has a "syscall number" (sys.h) — which is just an index in this array */
-void * const sys_call_table[] = {sys_write, sys_malloc, sys_clone, sys_exit};
+void * const sys_call_table[] = {sys_write, sys_malloc, sys_clone, sys_exit, sys_set_priority};

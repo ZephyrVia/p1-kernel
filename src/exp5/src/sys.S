@@ -18,6 +18,12 @@ call_sys_exit:
 	svc #0
 	ret
 
+.globl call_sys_set_priority
+call_sys_set_priority:
+	mov w8, #SYS_SET_PRIORITY_NUMBER
+	svc #0
+	ret
+
 .globl call_sys_clone
 call_sys_clone:
 	/* Save args for the child. After we come from the syscall and back in the task, thread_start() 

@@ -44,6 +44,8 @@
 // ***************************************
 
 #define ESR_ELx_EC_SHIFT		26
+#define ESR_ELx_EC_UNKNOWN		0x00
 #define ESR_ELx_EC_SVC64		0x15
+#define ESR_ELx_EC_SYS64		0x18
 
 #endif
