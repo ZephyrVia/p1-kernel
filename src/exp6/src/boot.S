@@ -202,6 +202,21 @@ __create_page_tables:
 	ldr		x3, =(VA_START + PHYS_MEMORY_SIZE - SECTION_SIZE)	// x3 = the virtual base of the last section
 	create_block_map x0, x1, x2, x3, MMU_DEVICE_FLAGS, x4
 
+	/* Mapping BCM2836 local peripherals. Phys addr range: 0x40000000--0x401fffff */
+	adrp	x0, pg_dir
+	add		x0, x0, #PAGE_SIZE				// x0 points to PUD
+	ldr		x1, =(VA_START + 0x40000000)
+	lsr		x2, x1, #PUD_SHIFT
+	and		x2, x2, #PTRS_PER_TABLE - 1
+	adrp	x3, pg_dir
+	add		x3, x3, #(3 * PAGE_SIZE)			// x3 points to the second PMD
+	orr		x4, x3, #MM_TYPE_PAGE_TABLE
+	str		x4, [x0, x2, lsl #3]
+	mov		x0, x3
+	mov		x1, #0x40000000
+	ldr		x2, =(VA_START + 0x40000000)
+	mov		x3, x2
+	create_block_map x0, x1, x2, x3, MMU_DEVICE_FLAGS, x4
+
 	mov	x30, x29						// restore return address
 	ret
-

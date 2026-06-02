@@ -32,8 +32,11 @@ void kernel_main()
 	printf("kernel boots ...\n\r");
 
 	irq_vector_init();
+#ifdef USE_QEMU
+	generic_timer_init();
+#else
 	timer_init();
-//	generic_timer_init();
+#endif
 	enable_interrupt_controller();
 	enable_irq();
 

@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "printf.h"
 #include "sched.h"
+#include "timer.h"
 #include "peripherals/timer.h"
 
 const unsigned int interval = 200000;
@@ -34,15 +35,14 @@ void handle_timer_irq( void )
 	They are fully functional on both QEMU and Rpi3 
 */
 
-//void generic_timer_init ( void )
-//{
-//	gen_timer_init();
-//	gen_timer_reset();
-//}
-//
-//void handle_generic_timer_irq( void )
-//{
-//	gen_timer_reset();
-//	timer_tick();
-//}
+void generic_timer_init ( void )
+{
+	gen_timer_init();
+	gen_timer_reset();
+}
 
+void handle_generic_timer_irq( void )
+{
+	gen_timer_reset();
+	timer_tick();
+}
